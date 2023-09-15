@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block mainbody %}
+<div id="time-plate" style="width: fit-content; margin: 15% auto;">
+    <h1 class="timer" style="font-size: 4rem;">00:00:00</h1>
+    <button onclick="startCountdown()">Start</button>
+    <button>Stop</button>
+</div>
+<script>
+    function startCountdown() {
+        var secs = 00;
+        var mins = 25;
+        var hrs = 00;
+
+        countdown = setInterval(() => {
+            if (secs == 00) {
+                mins--;
+                secs = 60;
+            }
+            secs--
+
+            updatedTime = `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
+            document.querySelector(".timer").innerHTML = updatedTime;
+
+            if (mins == 00) {
+                clearInterval(countdown);
+            }
+
+        }, 1000);
+    }
+
+
+    document.querySelector("#study").classList.add("active");
+</script>
+{% endblock mainbody %}

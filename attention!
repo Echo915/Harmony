@@ -1,0 +1,18 @@
+check script.js to fix inoperability of active links on load webpage *
+
+from django.shortcuts import render, HttpResponse
+from .models import Author, Book
+
+def author_detail(request, author_id):
+    # Retrieve the Author object based on the author_id
+    author = Author.objects.get(pk=author_id)
+    
+    # Retrieve any related Book objects
+    books = Book.objects.filter(author=author)
+    
+    if request.method == 'POST':
+        # Process any form data if this is a POST request
+        pass
+    
+    # Render a template with the author and book objects
+    return render(request, 'author_detail.html', {'author': author, 'books': books})

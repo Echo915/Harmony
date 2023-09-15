@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block mainbody %}
+<div class="main-page">
+    <p style="font-size: small; font-weight: 700; padding: 10px; font-style: italic;">{{ topic.name }}</p>
+    {% for flashcard in flashcards %}
+        {% if flashcard.topic.name == topic.name %}
+            <div class="flashcard-container">
+                <div class="flashcard">
+                    <div class="flashcard-front">
+                        <h3 style="padding: 10px; white-space: pre-wrap; text-align: center;">{{ flashcard.question }}</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <h1 style="text-align: center;">Answer</h1>
+                        <p style="padding: 10px; white-space: pre-wrap;">{{ flashcard.answer }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+    document.querySelector("#study").classList.add("active");
+</script>
+{% endblock mainbody %}

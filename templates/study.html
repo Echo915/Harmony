@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block mainbody %}
+<div class="middle-body">
+    <h1>Legends Live Here</h1>
+</div>
+<div class="right-body">
+    <h3 style="text-align: center;">Explore Different Study Techiques</h3>
+    <div id="pomorodo-technique" class="study-technique">
+        <a href="{% url 'pomodoro_timer' %}">
+            <img alt="Pomodoro" src="{% static 'images/pomorodo.gif' %}">
+            <p>Pomodoro Technique</p>
+        </a>
+    </div>
+    <div id="flashcards" class="study-technique">
+        <a href="{% url 'subjects' %}">
+            <img alt="Flashcards" src="{% static 'images/flashcards.gif' %}">
+            <p>flashcards Technique</p>
+        </a>
+    </div>
+</div>
+<script>
+    document.querySelector("#study").classList.add("active");
+</script>
+{% endblock mainbody %}

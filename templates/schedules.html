@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block mainbody %}
+<link rel="stylesheet" href="{% static 'css/schedules.css' %}">
+<!-- Pass seal form -->
+<div id="pass-seal" class="mini-form">
+    <div id="body">
+        <div id="head">
+            <h1 id="title">Pass Seal</h1>
+        </div>
+        <div>
+            <form method="POST">{% csrf_token %}
+                <p>Generate random password to keep distractions safely sealed away</p>
+                <p>{{ passwordForm.label }}</p>
+                <p>{{ passwordForm.password }}</p>
+                <button id="pass-gen" class="btn" onclick="fetchPassword()">Generate</button>
+                <button id="pass-copy" class="btn" onclick="copyPassword()">Copy</button>
+                <h3>Recovery Period</h3>
+                <p>{{ passwordForm.time }}</p>
+                <input class="btn" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</div>  
+<!-- Schedule Form -->
+<div id="schedule" class="mini-form">
+    <div id="body">
+        <div id="head">
+            <h1 id="title">Schedule</h1>
+        </div>
+        <div>
+            <form method="POST">{% csrf_token %}
+                <p>Keep track of your tasks and give your brain a break!!</p>
+                <p>{{ scheduleForm.schedule }}</p>
+                <h3>Due Period</h3>
+                <p>{{ scheduleForm.time }}</p>
+                <input class="btn" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Main schedules template -->
+<div class="main-page">
+    <div id="schedules-main-page-header" class="main-page-header">
+        <h2>&#128197;  My Schedule</h2>
+        <span class="main-page-sub-header">
+            <button id="schedule-menu-btn" onclick="toggle_show_item('schedule-menu')">tasks&#9656;</button>
+            <div id="schedule-menu" class="dropdown-menu">
+                <a id="tasks">All</a>
+                <a id="pass-lock">Today</a>
+                <a style="border-bottom: 1px solid #f1f1f1;">This Week</a>
+                <a>
+                    <input type="checkbox" id="pass-seal-op" name="pass-seal-op">
+                    <label for="pass-seal-op">Pass Seals</label>
+                </a>
+            </div>
+            <div class="time-plate">
+                <button id="current-time"></button>
+            </div>
+        </span>
+    </div>
+    <div id="schedules-main-page-body" class="main-page-body"> 
+        <div>
+            <div class="schedule-tag">
+                <h5>&#11088;   Todo</h5>
+            </div>
+            <div class="schedule-tag">
+                <h5>&#8987;   Due</h5>
+            </div>
+            <div class="schedule-tag">
+                <h5>&#9989;   Completed</h5>
+            </div>
+        </div>
+        {% if schedule_objects %}
+            {% for task in schedule_objects %}
+                <div id="task-item" class="task-item">
+                    <p style="font-size: 11px; padding: 0 10px;">{{ task.time }}</p>
+                    <h3 style="padding: 10px;">{{ task.schedule }}</h3>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>No Tasks Today. <a onclick="openCurtain('schedule')">Add</a>a new task.</h3>
+        {% endif %}
+    </div>
+    <button onclick="toggle_show_item('schedule-btn')">&#10133;&#9662;</button>
+    <div id="schedule-btn" style="display: none;">
+        <button class="btn" onclick="openCurtain('pass-seal')">New Time Seal</button>
+        <button class="btn" onclick="openCurtain('schedule')">New Task</button>
+    </div>
+
+    <!-- Pass Seal -->
+    <div id="padlocks" style="display: none; transition: 0.3s;">
+        <h2 style="margin-top: 50px;">Pass Seal</h2>
+        {% if pass_seal_objects %}
+            {% for pas_seal_object in pass_seal_objects %}
+                <div class="padlock">
+                    <div class="padlock-shackle">
+                        <div class="outer"></div>
+                        <div class="inner"></div>
+                    </div>
+                    <div class="padlock-body">
+                        <div class="padlock-field" id="padlock-label-field">
+                            <p style="padding: 10px; text-align: center;">{{ pas_seal_object.label }}</p>
+                        </div>
+                        <div class="padlock-field" id="padlock-password-field">
+                            <p style="padding: 10px; text-align: center;">{{ pas_seal_object.password }}</p>
+                        </div>
+                        <div class="padlock-key" onclick="switchText(this, newText='Copy')">Open</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>No pass seal present today. <a onclick="openCurtain('pass-seal')">click here</a> to add a pass seal.</h3>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'javascript/schedules.js' %}"></script>
+{% endblock mainbody %}

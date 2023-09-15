@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block mainbody %}
+<div class="main-page">
+    {% if subject_list %}
+        {% for subject in subject_list %}
+            <div class="subjects">
+                <div class="subject-box">
+                    <div href="" class="subject-main" onclick="showTopicMenu(this)">
+                        <i class="bi bi-bookmarks" style="color: cadetblue; padding: 2px; transition: 0.3s;"></i>
+                        <p class="subject-title" style="font-weight: 700;">{{ subject.name }}</p>
+                        <div class="topic-menu">
+                            {% for topic in topic_list %}
+                                {% if topic.subject == subject %}
+                                    <a href="{% url 'topic_detail' topic.pk %}">{{ topic.name }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            <a href="">Add New Topic</a>
+                            <a href="">Delete Subject</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <br style="clear: both;">
+        <a href="{% url 'flashcard_add' %}" class="add-link">New Flashcard</a>
+    {% else %}
+        <div>
+            <p style="padding: 10px; text-align: center; font-size: 20px;">
+                No Flashcards Yet. <a class="add-link" href="{% url 'flashcard_add' %}">Click Here</a> 
+                to add a new Flashcard.
+            </p>
+        </div>
+    {% endif %}
+<script>
+    function showTopicMenu(x) {
+        menu = x.children[2];
+        icon = x.children[0];
+
+        menu.classList.toggle("show");
+        icon.classList.toggle("active-subject");
+    }
+
+    document.querySelector("#study").classList.add("active");
+</script> 
+{% endblock mainbody %}

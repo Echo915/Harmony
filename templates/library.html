@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block mainbody %}
+<div style="margin: auto; padding-top: 20px; width: 500px;">
+    <form action="{% url 'upload_book' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>File: {{ form.file }}</p>
+        <p>Title: {{ form.title }}</p>
+        <input type="submit" value="Upload File">
+</div>
+<script>
+    document.querySelector("#library").classList.add("active");
+</script>
+{% endblock mainbody %}

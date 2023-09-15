@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block mainbody %}
+<br><br>
+<div class="headline">
+    <!-- Slideshow -->
+    <div class="slide fade">
+        <img class="slide-img" src="{% static 'images/girl-with-blue-bubble.png' %}" alt="image">
+        <div id="value">1 / 5</div>
+        <div id="caption">Caption 1</div>
+        
+        <!-- Left and Right buttons -->
+        <a id="prev" onclick="">&#10094;</a>
+        <a id="next" onclick="nextSlide(1)">&#10095;</a>
+    </div>
+</div><br><br>
+<div class="feed">
+    <h2>"The Power of Action: Breaking Free from Laziness and Pursuing Your Dreams"</h2>
+    <p>
+        "Nobody is born lazy. Laziness is a habit that we develop over time, and it's a habit that we can break. 
+        The first step to overcoming laziness is to acknowledge that you have a problem. You have to be honest with 
+        yourself and admit that you're not putting in the effort that you need to in order to reach your goals.
+
+        The next step is to create a plan. You need to set clear and specific goals for yourself, and you need to 
+        break them down into smaller, more manageable tasks. This will make it easier for you to get started, and it 
+        will give you a sense of accomplishment as you check off each task.
+
+        It's also important to surround yourself with positive influences. Find people who are motivated and driven, 
+        and spend time with them. Their enthusiasm and energy will rub off on you, and it will help to keep you focused 
+        and on track.
+
+        Finally, remember that progress, not perfection, is what matters. It's okay to make mistakes and have setbacks 
+        along the way. The important thing is to keep moving forward and to never give up on yourself or your dreams. 
+        With determination, hard work, and a positive attitude, you can overcome laziness and achieve anything you set 
+        your mind to."
+    </p>
+</div><br>
+
+<div class="feed">
+    <h2>"Navigating Change: Embracing New Opportunities and Overcoming Obstacles"</h2>
+    <p>
+        Overcoming addiction is not an easy journey, but it is a journey worth taking. It takes courage and strength to 
+        admit that you have a problem, and it takes even more courage and strength to take the necessary steps to overcome it. 
+        But know that you are not alone in this journey. There are many people who have gone through the same struggles as you 
+        and have come out on the other side stronger than ever before.
+
+        Remember that you are not defined by your addiction. Your addiction does not define who you are as a person. 
+        You are so much more than your addiction. You have the power within you to break free from its grip and to create a new 
+        and fulfilling life for yourself.
+
+        Take it one day at a time, and don't be too hard on yourself. Recovery is not a linear process, and there will be ups and 
+        downs along the way. But with each step forward, you are becoming stronger and more resilient. Celebrate your successes, 
+        no matter how small they may seem, and use them as fuel to keep going.
+
+        Surround yourself with people who support your recovery journey and who uplift you. Seek out professional help if needed, 
+        and don't be afraid to ask for help when you need it. Remember that it's okay to not be okay, and that there is always hope 
+        for a brighter future.
+
+        You are worthy of a happy and fulfilling life, free from the chains of addiction. Keep pushing forward, keep fighting, and never give up on yourself. You've got this.
+    </p>
+</div><br>
+
+<div class="feed">
+    <h2>"From Chaos to Clarity: The Power of Organizing Your Life"</h2>
+    <p>
+        Organizing your life can be a daunting task, but it is also one of the most rewarding things you can do for yourself. 
+        The benefits of living an organized life are numerous and far-reaching. When you take the time to organize your life, 
+        you will find that you have more time and energy for the things that matter most to you. You will also experience a 
+        greater sense of control and order in your life, which can lead to increased happiness, reduced stress, and improved 
+        mental health.
+    </p>
+</div>
+<script>
+    function nextSlide(y) {
+        let x = images.length;
+        let nextSlide = ((currentSlide + 1) % x);
+        console.log(nextSlide)
+        slide = document.querySelector(".slide-img");
+        slide.setAttribute("src", images[nextSlide]);
+        currentSlide = nextSlide;
+    }
+
+    let currentSlide = 0;
+    var image0 = "{% static 'images/girl-with-blue-bubble.png' %}";
+    var image1 = "{% static 'images/fix-yourself.jpg' %}";
+    var image2 = "{% static 'images/journal.png' %}";
+    var image3 = "{% static 'images/meet-friends.jpg' %}";
+    var image4 = "{% static 'images/time-management.jpg' %}";
+    var image5 = "{% static 'images/time-management2.jpg' %}";
+
+    let images = [image0, image1, image2, image3, image4, image5];
+
+    document.querySelector("#home").classList.add("active");
+    setInterval(nextSlide, 5000);
+</script>
+{% endblock mainbody %}

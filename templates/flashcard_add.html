@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block mainbody %}
+<div class="form-page-main">
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="save-btn" value="Save">
+    </form>
+    <p>Can't find a topic? <a href="{% url 'topic_add' %}">Add</a> a new one.</p>
+</div>
+{% endblock mainbody %}
